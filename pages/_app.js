@@ -1,11 +1,25 @@
+import { ThemeProvider, CSSReset } from '@chakra-ui/react'
+import theme from '@/styles/theme'
 import { AuthProvider } from '../lib/auth'
-import '../styles/globals.css'
+import { Global, css } from '@emotion/react'
 
 function MyApp({ Component, pageProps }) {
     return (
-        <AuthProvider>
-            <Component {...pageProps} />
-        </AuthProvider>
+        <ThemeProvider theme={theme}>
+            <AuthProvider>
+                <CSSReset />
+                <Global
+                    styles={css`
+                        #__next {
+                            display: flex;
+                            flex-direction: column;
+                            min-height: 100vh;
+                        }
+                    `}
+                />
+                <Component {...pageProps} />
+            </AuthProvider>
+        </ThemeProvider>
     )
 }
 
